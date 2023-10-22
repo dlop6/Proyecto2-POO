@@ -1,0 +1,30 @@
+{
+    "juanperez@gmail.com": {
+        "nombre": "Dr. Juan Perez",
+        "email": "juanperez@gmail.com",
+        "password": "123456789",
+        "es_miembro_salud": true,
+        "carnet_colegiado": "12345"
+    },
+    "otrousuario@gmail.com": {
+        "nombre": "Otro Usuario",
+        "email": "otrousuario@gmail.com",
+        "password": "password123",
+        "es_miembro_salud": false,
+        "carnet_colegiado": null
+    },
+    "Opti@mus.com": {
+        "nombre": "Optimus Prime",
+        "email": "Opti@mus.com",
+        "password": "Optimus",
+        "es_miembro_salud": true,
+        "carnet_colegiado": "123211"
+    },
+    "dieguito@hotmail.com": {
+        "nombre": "Diego Lopez",
+        "email": "dieguito@hotmail.com",
+        "password": "P3t3r *",
+        "es_miembro_salud": false,
+        "carnet_colegiado": "23456"
+    }
+}
