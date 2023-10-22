@@ -1,3 +1,9 @@
+'''
+Universidad del Valle de Guatemala
+Proyecto Final POO
+Roberto Barreda - 23354
+'''
+
 import json
 
 class Usuario:
