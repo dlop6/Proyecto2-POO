@@ -9,6 +9,7 @@ import re
 import json
 from Model.Usuario import Usuario
 
+
 class ControladorUsuario:
     def __init__(self, base_de_datos):
         self.base_de_datos = base_de_datos

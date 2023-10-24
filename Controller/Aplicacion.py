@@ -4,14 +4,20 @@ Proyecto Final POO
 Roberto Barreda - 23354
 '''
 
+import sys
+sys.path.append('/path/to/parent/directory/of/Model')
+
+
+
 import tkinter as tk
 from tkinter import Label, Entry, Button, Checkbutton, messagebox
 import json
-from Model.Usuario import Usuario
+from Model.Usuario import usuarioClass
 from Model.BaseDeDatosJSON import BaseDeDatosJSON
-from ControladorUsuario import ControladorUsuario
+from Controller.ControladorUsuario import ControladorUsuario
 
-class Aplicacion:
+
+class ClaseA:
     def __init__(self, root, base_de_datos):
         self.root = root
         self.base_de_datos = base_de_datos
@@ -114,6 +120,7 @@ class Aplicacion:
         for widget in self.root.winfo_children():
             widget.destroy()
 
+#TODO: Fix this thing
 def main():
     filename = 'usuarios.json'
     base_de_datos = BaseDeDatosJSON(filename)
