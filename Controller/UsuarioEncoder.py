@@ -7,7 +7,7 @@ Roberto Barreda - 23354
 
 import json
 
-from Usuario import Usuario
+from Model.Usuario import Usuario
 
 class UsuarioEncoder(json.JSONEncoder):
     def default(self, obj):

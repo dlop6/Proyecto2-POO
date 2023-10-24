@@ -7,8 +7,8 @@ Roberto Barreda - 23354
 import tkinter as tk
 from tkinter import Label, Entry, Button, Checkbutton, messagebox
 import json
-from Usuario import Usuario
-from BaseDeDatosJSON import BaseDeDatosJSON
+from Model.Usuario import Usuario
+from Model.BaseDeDatosJSON import BaseDeDatosJSON
 from ControladorUsuario import ControladorUsuario
 
 class Aplicacion:

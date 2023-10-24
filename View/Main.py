@@ -5,9 +5,9 @@ Roberto Barreda - 23354
 '''
 
 import tkinter as Tk
-from BaseDeDatosJSON import BaseDeDatosJSON
-from ControladorUsuario import ControladorUsuario
-from Aplicacion import Aplicacion
+from Model.BaseDeDatosJSON import BaseDeDatosJSON
+from Controller.ControladorUsuario import ControladorUsuario
+from Controller.Aplicacion import Aplicacion
 
 # Configuración de la ventana principal
 filename = 'usuarios.json'
@@ -18,3 +18,8 @@ app = Aplicacion(root, base_de_datos)
 
 # Ejecución de la aplicación
 root.mainloop()
+
+# Directorio.Archivo
+
+#from Directorio.Archivo import Directorio.Archivo
+#import Directorio.Archivo as "Algo"

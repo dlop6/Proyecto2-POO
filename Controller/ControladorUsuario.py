@@ -7,7 +7,7 @@ Roberto Barreda - 23354
 
 import re
 import json
-from Usuario import Usuario
+from Model.Usuario import Usuario
 
 class ControladorUsuario:
     def __init__(self, base_de_datos):
