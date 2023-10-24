@@ -1,25 +1,19 @@
-'''
-Universidad del Valle de Guatemala
-Proyecto Final POO
-Roberto Barreda - 23354
-'''
+import sys
+import os
+
+# Add the root directory to the sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import tkinter as Tk
 from Model.BaseDeDatosJSON import BaseDeDatosJSON
 from Controller.ControladorUsuario import ControladorUsuario
 from Controller.Aplicacion import Aplicacion
 
-# Configuración de la ventana principal
-filename = 'usuarios.json'
-base_de_datos = BaseDeDatosJSON(filename)
+class Main:
+    def __init__(self):
+        filename = 'usuarios.json'
+        base_de_datos = BaseDeDatosJSON(filename)
 
-root = Tk.Tk()
-app = Aplicacion(root, base_de_datos)
-
-# Ejecución de la aplicación
-root.mainloop()
-
-# Directorio.Archivo
-
-#from Directorio.Archivo import Directorio.Archivo
-#import Directorio.Archivo as "Algo"
+        root = Tk.Tk()
+        app = Aplicacion(root, base_de_datos)
+        root.mainloop()

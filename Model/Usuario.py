@@ -5,7 +5,7 @@ Roberto Barreda - 23354
 '''
 
 
-class usuarioClass:
+class Usuario:
     def __init__(self, nombre, email, password, es_miembro_salud, carnet_colegiado=None):
         self.nombre = nombre
         self.email = email
