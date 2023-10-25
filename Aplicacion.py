@@ -5,9 +5,10 @@ Roberto Barreda - 23354
 '''
 
 import tkinter as tk
-from tkinter import Label, Entry, Button, Checkbutton, messagebox
-import json
+from tkinter import messagebox
 from Usuario import Usuario
+import customtkinter as ctk
+
 from BaseDeDatosJSON import BaseDeDatosJSON
 from ControladorUsuario import ControladorUsuario
 
@@ -23,53 +24,55 @@ class Aplicacion:
     
     def menu(self):
         self.clear_screen()
-        self.label_menu = Label(self.root, text="Menú Principal")
+        self.root.geometry("400x300")
+        self.label_menu = ctk.CTkLabel(self.root, text="Menú Principal")
         self.label_menu.pack(pady=10)
 
-        self.boton_signup = Button(self.root, text="Sign Up", command=self.signup)
-        self.boton_signup.pack()
+        self.boton_signup = ctk.CTkButton(self.root, text="Sign Up", command=self.signup)
+        self.boton_signup.pack(pady=5)
 
-        self.boton_login = Button(self.root, text="Log In", command=self.login)
-        self.boton_login.pack()
+        self.boton_login = ctk.CTkButton(self.root, text="Log In", command=self.login)
+        self.boton_login.pack(pady=5)
 
-        self.boton_exit = Button(self.root, text="Exit", command=self.root.quit)
-        self.boton_exit.pack()
+        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.root.quit)
+        self.boton_exit.pack(pady=5)
 
     def signup(self):
         self.clear_screen()
-        self.label_registro = Label(self.root, text="Registro de Usuario")
+        self.label_registro = ctk.CTkLabel(self.root, text="Registro de Usuario")
         self.label_registro.pack(pady=10)
 
-        self.label_nombre = Label(self.root, text="Nombre:")
+        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
         self.label_nombre.pack()
-        self.entry_nombre = Entry(self.root)
+        self.entry_nombre = ctk.CTkEntry(self.root)
         self.entry_nombre.pack()
 
-        self.label_email = Label(self.root, text="Correo Electrónico:")
+        self.label_email = ctk.CTkLabel(self.root, text="Correo Electrónico:")
         self.label_email.pack()
-        self.entry_email = Entry(self.root)
+        self.entry_email = ctk.CTkEntry(self.root)
         self.entry_email.pack()
 
-        self.label_password = Label(self.root, text="Contraseña:")
+        self.label_password = ctk.CTkLabel(self.root, text="Contraseña:")
         self.label_password.pack()
-        self.entry_password = Entry(self.root, show="*")
+        self.label_password.pack()
+        self.entry_password = ctk.CTkEntry(self.root, show="*")
         self.entry_password.pack()
 
-        self.label_miembro_salud = Label(self.root, text="¿Es miembro del cuerpo de salud?")
+        self.label_miembro_salud = ctk.CTkLabel(self.root, text="¿Es miembro del cuerpo de salud?")
         self.label_miembro_salud.pack()
         self.var_miembro_salud = tk.BooleanVar()
-        self.checkbox_miembro_salud = tk.Checkbutton(self.root, text="Sí", variable=self.var_miembro_salud)
+        self.checkbox_miembro_salud = ctk.CTkCheckBox(self.root, text="Sí", variable=self.var_miembro_salud)
         self.checkbox_miembro_salud.pack()
 
-        self.label_carnet = Label(self.root, text="Número de carné (si aplica):")
+        self.label_carnet = ctk.CTkLabel(self.root, text="Número de carné (si aplica):")
         self.label_carnet.pack()
-        self.entry_carnet = Entry(self.root)
+        self.entry_carnet = ctk.CTkEntry(self.root)
         self.entry_carnet.pack()
 
-        self.boton_registro = Button(self.root, text="Registrarse", command=self.registrarse)
+        self.boton_registro = ctk.CTkButton(self.root, text="Registrarse", command=self.registrarse)
         self.boton_registro.pack(pady=10)
 
-        self.boton_exit = Button(self.root, text="Exit", command=self.root.quit)
+        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.menu)
         self.boton_exit.pack()
 
     def registrarse(self):
@@ -84,23 +87,23 @@ class Aplicacion:
 
     def login(self):
         self.clear_screen()
-        self.label_inicio_sesion = Label(self.root, text="Iniciar Sesión")
+        self.label_inicio_sesion = ctk.CTkLabel(self.root, text="Iniciar Sesión")
         self.label_inicio_sesion.pack(pady=10)
 
-        self.label_email_inicio = Label(self.root, text="Correo Electrónico:")
+        self.label_email_inicio = ctk.CTkLabel(self.root, text="Correo Electrónico:")
         self.label_email_inicio.pack()
-        self.entry_email_inicio = Entry(self.root)
+        self.entry_email_inicio = ctk.CTkEntry(self.root)
         self.entry_email_inicio.pack()
 
-        self.label_password_inicio = Label(self.root, text="Contraseña:")
+        self.label_password_inicio = ctk.CTkLabel(self.root, text="Contraseña:")
         self.label_password_inicio.pack()
-        self.entry_password_inicio = Entry(self.root, show="*")
+        self.entry_password_inicio = ctk.CTkEntry(self.root, show="*")
         self.entry_password_inicio.pack()
 
-        self.boton_inicio_sesion = Button(self.root, text="Iniciar Sesión", command=self.iniciar_sesion)
+        self.boton_inicio_sesion = ctk.CTkButton(self.root, text="Iniciar Sesión", command=self.iniciar_sesion)
         self.boton_inicio_sesion.pack(pady=10)
 
-        self.boton_exit = Button(self.root, text="Exit", command=self.root.quit)
+        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.menu)
         self.boton_exit.pack()
 
     def iniciar_sesion(self):
@@ -117,7 +120,8 @@ class Aplicacion:
 def main():
     filename = 'usuarios.json'
     base_de_datos = BaseDeDatosJSON(filename)
-    root = tk.Tk()
+    root = ctk.CTk()
+    root.configure(bg='black')
     app = Aplicacion(root, base_de_datos)
     root.mainloop()
 
