@@ -3,7 +3,7 @@ Universidad del Valle de Guatemala
 Proyecto Final POO
 Roberto Barreda - 23354
 '''
-
+#No funciona en las carpetas
 import tkinter as Tk
 from Model import BaseDeDatosJSON
 from Controller.Aplicacion import ClaseA
