@@ -1,37 +1,333 @@
 {
-    "juanperez@gmail.com": {
-        "nombre": "Dr. Juan Perez",
-        "email": "juanperez@gmail.com",
-        "password": "123456789",
-        "es_miembro_salud": true,
-        "carnet_colegiado": "12345"
-    },
-    "otrousuario@gmail.com": {
-        "nombre": "Otro Usuario",
-        "email": "otrousuario@gmail.com",
-        "password": "password123",
-        "es_miembro_salud": false,
-        "carnet_colegiado": null
-    },
-    "Opti@mus.com": {
-        "nombre": "Optimus Prime",
-        "email": "Opti@mus.com",
-        "password": "Optimus",
-        "es_miembro_salud": true,
-        "carnet_colegiado": "123211"
-    },
-    "dieguito@hotmail.com": {
-        "nombre": "Diego Lopez",
-        "email": "dieguito@hotmail.com",
-        "password": "P3t3r *",
-        "es_miembro_salud": false,
-        "carnet_colegiado": "23456"
-    },
-    "uwu@gmail.com": {
-        "nombre": "diego",
-        "email": "uwu@gmail.com",
-        "password": "pepepepe",
-        "es_miembro_salud": false,
-        "carnet_colegiado": ""
-    }
+    "usuarios": [
+        {
+            "perfil": {
+                "carnet": "201503476",
+                "name": "Jorge",
+                "email": "jorge@gmail.com",
+                "password": "1234",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1310",
+                    "nombre": "Curso de RCP",
+                    "Fecha": "2019-01-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1200",
+                    "nombre": "Capacitaci\u00c3\u00b3n para uso de Equipo de Rayos X ",
+                    "Fecha": "2020-01-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital San Juan de Dios"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201504568",
+                "name": "Maria",
+                "email": "maria@gmail.com",
+                "password": "5678",
+                "miembro_de_Salud": false
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1300",
+                    "nombre": "Curso de Primeros Auxilios",
+                    "Fecha": "2018-01-01",
+                    "Certificado": true,
+                    "Localidad": "Heredia"
+                },
+                {
+                    "codigo": "CI-1315",
+                    "nombre": "Curso de Manejo de Desfibrilador",
+                    "Fecha": "2018-06-01",
+                    "Certificado": true,
+                    "Localidad": "Alajuela"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1215",
+                    "nombre": "Curso de Soporte Vital B\u00c3\u00a1sico",
+                    "Fecha": "2020-06-01",
+                    "Certificado": false,
+                    "Localidad": "Cartago"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201505234",
+                "name": "Carlos",
+                "email": "carlos@gmail.com",
+                "password": "91011",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1320",
+                    "nombre": "Curso de Inmovilizaci\u00c3\u00b3n de Pacientes",
+                    "Fecha": "2017-01-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "carnet": "201506789",
+                "name": "Ana",
+                "email": "ana@gmail.com",
+                "password": "121314",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1330",
+                    "nombre": "Curso de Cuidados Paliativos",
+                    "Fecha": "2019-02-01",
+                    "Certificado": true,
+                    "Localidad": "Heredia"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1220",
+                    "nombre": "Curso de Ventilaci\u00c3\u00b3n Mec\u00c3\u00a1nica",
+                    "Fecha": "2021-01-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital Calder\u00c3\u00b3n Guardia"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201507890",
+                "name": "Pedro",
+                "email": "pedro@gmail.com",
+                "password": "151617",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1340",
+                    "nombre": "Curso de Cuidados Intensivos",
+                    "Fecha": "2019-03-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1235",
+                    "nombre": "Curso de Cuidados Neonatales",
+                    "Fecha": "2021-06-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital Nacional de Ni\u00c3\u00b1os"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201508901",
+                "name": "Sofia",
+                "email": "sofia@gmail.com",
+                "password": "181920",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1350",
+                    "nombre": "Curso de Cuidados Geri\u00c3\u00a1tricos",
+                    "Fecha": "2019-04-01",
+                    "Certificado": true,
+                    "Localidad": "Heredia"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1240",
+                    "nombre": "Curso de Cuidados Pedi\u00c3\u00a1tricos",
+                    "Fecha": "2021-07-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital Nacional de Ni\u00c3\u00b1os"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201509012",
+                "name": "Luis",
+                "email": "luis@gmail.com",
+                "password": "212223",
+                "miembro_de_Salud": false
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1360",
+                    "nombre": "Curso de Cuidados Psiqui\u00c3\u00a1tricos",
+                    "Fecha": "2019-05-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1255",
+                    "nombre": "Curso de Cuidados Oncol\u00c3\u00b3gicos",
+                    "Fecha": "2021-10-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital M\u00c3\u00a9xico"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201510123",
+                "name": "Laura",
+                "email": "laura@gmail.com",
+                "password": "242526",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1370",
+                    "nombre": "Curso de Cuidados de Enfermer\u00c3\u00ada",
+                    "Fecha": "2019-06-01",
+                    "Certificado": true,
+                    "Localidad": "Heredia"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1260",
+                    "nombre": "Curso de Cuidados de Urgencias",
+                    "Fecha": "2021-11-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital San Juan de Dios"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201511234",
+                "name": "Diego",
+                "email": "diego@gmail.com",
+                "password": "272829",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1380",
+                    "nombre": "Curso de Cuidados de Pacientes Cr\u00c3\u00b3nicos",
+                    "Fecha": "2019-07-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1275",
+                    "nombre": "Curso de Cuidados de Pacientes Quir\u00c3\u00bargicos",
+                    "Fecha": "2021-12-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital Calder\u00c3\u00b3n Guardia"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201512345",
+                "name": "Marta",
+                "email": "marta@gmail.com",
+                "password": "303132",
+                "miembro_de_Salud": false
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1390",
+                    "nombre": "Curso de Cuidados de Pacientes en Cuidados Intensivos",
+                    "Fecha": "2019-08-01",
+                    "Certificado": true,
+                    "Localidad": "Heredia"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1280",
+                    "nombre": "Curso de Cuidados de Pacientes en Cuidados Paliativos",
+                    "Fecha": "2022-01-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital San Juan de Dios"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "carnet": "201513456",
+                "name": "Juan",
+                "email": "juan@gmail.com",
+                "password": "333435",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [
+                {
+                    "codigo": "CI-1400",
+                    "nombre": "Curso de Cuidados de Pacientes en Cuidados Geri\u00c3\u00a1tricos",
+                    "Fecha": "2019-09-01",
+                    "Certificado": true,
+                    "Localidad": "San Jose"
+                }
+            ],
+            "Cursos proximos": [
+                {
+                    "codigo": "C2-1295",
+                    "nombre": "Curso de Cuidados de Pacientes en Cuidados Neonatales",
+                    "Fecha": "2022-02-01",
+                    "Certificado": false,
+                    "Localidad": "Hospital Nacional de Ni\u00c3\u00b1os"
+                }
+            ]
+        },
+        {
+            "perfil": {
+                "email": "carlos",
+                "password": "marx@gmail.com",
+                "name": "1234",
+                "carnet": true,
+                "miembro_de_Salud": "21312"
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "caaarlos@gmail.com",
+                "password": "1234",
+                "name": "diego",
+                "carnet": "1234",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "pepe@gmail.com",
+                "password": "111",
+                "name": "diego",
+                "carnet": "213",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
+        }
+    ]
 }

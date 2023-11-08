@@ -10,13 +10,15 @@ from Usuario import Usuario
 import customtkinter as ctk
 
 from BaseDeDatosJSON import BaseDeDatosJSON
-from ControladorUsuario import ControladorUsuario
+from Usuario import Usuario
 
 class Aplicacion:
-    def __init__(self, root, base_de_datos):
+    def __init__(self, root):
         self.root = root
-        self.base_de_datos = base_de_datos
-        self.controlador_usuario = ControladorUsuario(self.base_de_datos)
+        
+        self.file_name = "usuarios.json"
+        self.base_de_datos = BaseDeDatosJSON(self.file_name)
+        self.controlador_usuario = Usuario(self.base_de_datos, "", "", "", False, "")
         self.root.geometry("400x300")
         self.root.title("Sistema de Autenticación")
 
@@ -39,6 +41,7 @@ class Aplicacion:
 
     def signup(self):
         self.clear_screen()
+        self.root.geometry("400x500")
         self.label_registro = ctk.CTkLabel(self.root, text="Registro de Usuario")
         self.label_registro.pack(pady=10)
 
@@ -82,8 +85,13 @@ class Aplicacion:
         es_miembro_salud = self.var_miembro_salud.get()
         carnet_colegiado = self.entry_carnet.get()
 
-        resultado = self.controlador_usuario.crear_cuenta(nombre, email, password, es_miembro_salud, carnet_colegiado)
-        messagebox.showinfo("Resultado del Registro", resultado)
+        resultado = self.base_de_datos.crear_cuenta(email, password, nombre, carnet_colegiado, es_miembro_salud)
+        
+        if resultado: 
+            messagebox.showinfo("Resultado del Registro", "¡Usuario registra2do exitosamente!")
+            self.menu()
+        else:
+            messagebox.showinfo("Resultado del Registro", "El correo electrónico ya está registrado")
 
     def login(self):
         self.clear_screen()
@@ -106,23 +114,38 @@ class Aplicacion:
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.menu)
         self.boton_exit.pack()
 
+
     def iniciar_sesion(self):
         email = self.entry_email_inicio.get()
         password = self.entry_password_inicio.get()
 
-        resultado = self.controlador_usuario.autenticar(email, password)
-        messagebox.showinfo("Resultado del Inicio de Sesión", resultado)
+        resultado = self.base_de_datos.autenticar(email, password)
+        if resultado:
+            self.logged_menu()
+        else:
+            messagebox.showinfo("No se pudo iniciar sesión", "El correo electrónico o la contraseña son incorrectos")
+        
+    def logged_menu(self):
+       self.clear_screen()
+       self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
+       self.label_menu.pack(pady=10)
+       button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
+       button_commands = [None, None, None, None, None, self.menu] 
+       for text, command in zip(button_texts, button_commands):
+           button = ctk.CTkButton(self.root, text=text, command=command)
+           button.pack(pady=5)
+                
+
+        
 
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
 def main():
-    filename = 'usuarios.json'
-    base_de_datos = BaseDeDatosJSON(filename)
     root = ctk.CTk()
     root.configure(bg='black')
-    app = Aplicacion(root, base_de_datos)
+    app = Aplicacion(root)
     root.mainloop()
 
 if __name__ == "__main__":
