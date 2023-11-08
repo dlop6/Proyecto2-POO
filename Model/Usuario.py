@@ -4,7 +4,6 @@ Proyecto Final POO
 Roberto Barreda - 23354
 '''
 
-import json
 
 class Usuario:
     def __init__(self, nombre, email, password, es_miembro_salud, carnet_colegiado=None):

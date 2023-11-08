@@ -26,5 +26,12 @@
         "password": "P3t3r *",
         "es_miembro_salud": false,
         "carnet_colegiado": "23456"
+    },
+    "uwu@gmail.com": {
+        "nombre": "diego",
+        "email": "uwu@gmail.com",
+        "password": "pepepepe",
+        "es_miembro_salud": false,
+        "carnet_colegiado": ""
     }
 }
