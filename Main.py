@@ -8,6 +8,7 @@ Roberto Barreda - 23354
 '''
 #No funciona en las carpetas
 import tkinter as Tk
+import customtkinter as ctk
 from BaseDeDatosJSON import BaseDeDatosJSON
 from AppController import Aplicacion
 
@@ -15,7 +16,8 @@ from AppController import Aplicacion
 filename = 'usuarios.json'
 base_de_datos = BaseDeDatosJSON(filename)
 
-root = Tk.Tk()
+root = ctk.CTk()
+
 app = Aplicacion(root)
 
 # Ejecución de la aplicación
