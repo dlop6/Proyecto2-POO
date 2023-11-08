@@ -139,13 +139,13 @@ class Aplicacion:
         self.clear_screen()
         self.label_menu = ctk.CTkLabel(self.root, text="Cursos")
         self.label_menu.pack(pady=10)
-        button_texts = ["Crear Curso", "Eliminar Curso", "Exit"]
-        button_commands = [self.crear_curso, self.eliminar_curso, self.logged_menu] 
+        button_texts = ["Asignar Curso", "Eliminar Curso", "Exit"]
+        button_commands = [self.asignar_curso, self.eliminar_curso, self.logged_menu] 
         for text, command in zip(button_texts, button_commands):
             button = ctk.CTkButton(self.root, text=text, command=command)
             button.pack(pady=5)
         
-    def crear_curso(self):
+    def asignar_curso(self):
         self.clear_screen()
         self.label_menu = ctk.CTkLabel(self.root, text="Crear Curso")
         self.label_menu.pack(pady=10)
