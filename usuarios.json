@@ -328,6 +328,17 @@
             },
             "Cursos realizados": [],
             "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "prueba",
+                "password": "prueba",
+                "name": "prueba",
+                "carnet": "1",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
         }
     ]
 }
