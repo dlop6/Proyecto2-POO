@@ -11,6 +11,7 @@ import customtkinter as ctk
 
 from BaseDeDatosJSON import BaseDeDatosJSON
 from Usuario import Usuario
+from News import News
 
 class Aplicacion:
     def __init__(self, root):
@@ -19,6 +20,7 @@ class Aplicacion:
         self.file_name = "usuarios.json"
         self.base_de_datos = BaseDeDatosJSON(self.file_name)
         self.controlador_usuario = Usuario(self.base_de_datos, "", "", "", False, "")
+        self.news = News("pub_32493947bac2cd99a74d4b4821243a7ac98aa", self.root)
         self.root.geometry("400x300")
         self.root.title("Sistema de Autenticación")
 
@@ -125,12 +127,13 @@ class Aplicacion:
         else:
             messagebox.showinfo("No se pudo iniciar sesión", "El correo electrónico o la contraseña son incorrectos")
         
+
     def logged_menu(self):
        self.clear_screen()
        self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
        self.label_menu.pack(pady=10)
        button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
-       button_commands = [None, self.cursos, None, None, None, self.menu] 
+       button_commands = [self.showNewsMenu, self.cursos, None, None, None, self.menu] 
        for text, command in zip(button_texts, button_commands):
            button = ctk.CTkButton(self.root, text=text, command=command)
            button.pack(pady=5)
@@ -186,6 +189,16 @@ class Aplicacion:
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
         self.boton_exit.pack()
+        
+    def showNewsMenu(self):
+        self.clear_screen()
+        self.news.news_menu()
+        
+        self.root.exit_button = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+        self.root.exit_button.pack(pady=10)
+        
+        self.root.mainloop()
+        pass
 
 
     def clear_screen(self):
