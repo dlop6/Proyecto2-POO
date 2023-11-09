@@ -339,6 +339,17 @@
             },
             "Cursos realizados": [],
             "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "perro@gmail.com",
+                "password": "1234",
+                "name": "Diego",
+                "carnet": "21312",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
         }
     ]
 }
