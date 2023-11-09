@@ -1,25 +1,21 @@
-'''
-Universidad del Valle de Guatemala
-Proyecto Final POO
-Roberto Barreda - 23354
-'''
-#No funciona en las carpetas
 import customtkinter as ctk
 from BaseDeDatosJSON import BaseDeDatosJSON
 from AppController import Aplicacion
 
-# Configuración de la ventana principal
-filename = 'usuarios.json'
-base_de_datos = BaseDeDatosJSON(filename)
+class Main:
+    def __init__(self, filename):
+        self.filename = filename
 
-root = ctk.CTk()
+    def run(self):
+        base_de_datos = BaseDeDatosJSON(self.filename)
 
-app = Aplicacion(root)
+        root = ctk.CTk()
 
-# Ejecución de la aplicación
-root.mainloop()
+        app = Aplicacion(root)
 
-# Directorio.Archivo
+        root.mainloop()
 
-#from Directorio.Archivo import Directorio.Archivo
-#import Directorio.Archivo as "Algo"
+if __name__ == '__main__':
+    filename = 'usuarios.json'
+    main = Main(filename)
+    main.run()

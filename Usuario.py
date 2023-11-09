@@ -1,11 +1,19 @@
-'''
-Universidad del Valle de Guatemala
-Proyecto Final POO
-Roberto Barreda - 23354
-'''
 
 
 class Usuario:
+    """
+    Clase que representa a un usuario del sistema de cursos en línea.
+
+    Atributos:
+    - carnet (str): El número de carnet del usuario.
+    - nombre (str): El nombre completo del usuario.
+    - email (str): El correo electrónico del usuario.
+    - password (str): La contraseña del usuario.
+    - es_miembro_salud (bool): Indica si el usuario es miembro del sector salud.
+    - cursos_realizados (list): Lista de cursos que el usuario ha completado.
+    - cursos_proximos (list): Lista de cursos que el usuario tiene pendientes por completar.
+    """
+
     def __init__(self, carnet, nombre, email, password, es_miembro_salud, cursos_realizados=None, cursos_proximos=None):
         self.perfil = {
             "carnet": carnet,
@@ -18,6 +26,9 @@ class Usuario:
         self.cursos_proximos = cursos_proximos or []
 
     def to_dict(self):
+        """
+        Retorna un diccionario con la información del usuario.
+        """
         return {
             "perfil": self.perfil,
             "Cursos realizados": self.cursos_realizados,
@@ -26,6 +37,15 @@ class Usuario:
 
     @classmethod
     def from_dict(cls, data):
+        """
+        Crea una instancia de Usuario a partir de un diccionario con su información.
+
+        Args:
+        - data (dict): Diccionario con la información del usuario.
+
+        Returns:
+        - Usuario: Instancia de Usuario con la información del diccionario.
+        """
         return cls(
             data["perfil"]["carnet"],
             data["perfil"]["name"],
