@@ -182,7 +182,7 @@ class Aplicacion:
        self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
        self.label_menu.pack(pady=10)
        button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
-       button_commands = [self.showNewsMenu, self.cursos, None, None, None, self.menu] 
+       button_commands = [self.showNewsMenu, self.cursos, self.agenda, self.evaluar_curso, None, self.menu] 
        for text, command in zip(button_texts, button_commands):
            button = ctk.CTkButton(self.root, text=text, command=command)
            button.pack(pady=5)
@@ -238,6 +238,64 @@ class Aplicacion:
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
         self.boton_exit.pack()
+
+    def agendar_evento(self):
+        self.clear_screen()
+        self.label_agenda = ctk.CTkLabel(self.root, text="Agenda")
+        self.label_agenda.pack(pady=10)
+
+        self.label_date = ctk.CTkLabel(self.root, text="Seleccionar Fecha:")
+        self.label_date.pack()
+        self.calendar = Calendar(self.root, selectmode="day", year=2023, month=11, day=7)
+        self.calendar.pack(pady=10)
+
+        self.label_event = ctk.CTkLabel(self.root, text="Descripción del Evento:")
+        self.label_event.pack()
+        self.entry_event = ctk.CTkEntry(self.root)
+        self.entry_event.pack()
+
+        self.button_agendar = ctk.CTkButton(self.root, text="Agendar", command=self.agendar_evento)
+        self.button_agendar.pack(pady=10)
+
+        self.button_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+        self.button_exit.pack()
+
+    def agendar_evento(self):
+        selected_date = self.calendar.get_date()
+        event_description = self.entry_event.get()
+
+        if selected_date and event_description:
+            # Guardar eventos (esto es solo un ejemplo, debes adaptarlo a tu lógica)
+            event = {"date": selected_date, "description": event_description}
+            events = []
+
+            try:
+                with open('events.json', 'r') as json_file:
+                    events = json.load(json_file)
+            except FileNotFoundError:
+                pass
+
+            events.append(event)
+
+            with open('events.json', 'w') as json_file:
+                json.dump(events, json_file)
+
+            messagebox.showinfo("Evento Agendado", "Evento agendado exitosamente.")
+            self.logged_menu()
+        else:
+            messagebox.showwarning("Datos Incompletos", "Por favor, complete todos los campos.")
+    
+    def enviar_evaluacion_curso(self):
+        selected_course = self.selected_course_var.get()
+        rating = self.entry_rating.get()
+        comentarios = self.entry_comentarios.get()
+
+        if selected_course and rating and comentarios:
+            self.controlador_usuario.agregar_evaluacion_curso(selected_course, rating, comentarios)
+            messagebox.showinfo("Evaluación Enviada", "Evaluación de curso enviada exitosamente.")
+            self.logged_menu()
+        else:
+            messagebox.showwarning("Datos Incompletos", "Por favor, complete todos los campos.")
         
     def showNewsMenu(self):
         self.clear_screen()
