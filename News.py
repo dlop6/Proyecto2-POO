@@ -7,7 +7,7 @@ import webbrowser
 
 import requests
 import webbrowser
-import ctk
+
 
 class News:
     """

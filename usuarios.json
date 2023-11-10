@@ -350,6 +350,17 @@
             },
             "Cursos realizados": [],
             "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "luispene@gmail.com",
+                "password": "1234",
+                "name": "luis",
+                "carnet": "234",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
         }
     ]
 }
