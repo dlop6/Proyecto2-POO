@@ -133,62 +133,20 @@ class Aplicacion:
        self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
        self.label_menu.pack(pady=10)
        button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
-       button_commands = [self.showNewsMenu, self.cursos, None, None, None, self.menu] 
+       button_commands = [self.showNewsMenu, self.showCursosMenu, None, None, None, self.menu] 
        for text, command in zip(button_texts, button_commands):
            button = ctk.CTkButton(self.root, text=text, command=command)
            button.pack(pady=5)
            
-    def cursos(self):
+    def showCursosMenu(self):
         self.clear_screen()
-        self.label_menu = ctk.CTkLabel(self.root, text="Cursos")
-        self.label_menu.pack(pady=10)
-        button_texts = ["Asignar Curso", "Eliminar Curso", "Exit"]
-        button_commands = [self.crear_curso, self.eliminar_curso, self.logged_menu] 
-        for text, command in zip(button_texts, button_commands):
-            button = ctk.CTkButton(self.root, text=text, command=command)
-            button.pack(pady=5)
+        self.cursos.cursos_menu()
         
-    def crear_curso(self):
-        self.clear_screen()
-        self.label_menu = ctk.CTkLabel(self.root, text="Crear Curso")
-        self.label_menu.pack(pady=10)
-
-        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
-        self.label_nombre.pack()
-        self.entry_nombre = ctk.CTkEntry(self.root)
-        self.entry_nombre.pack()
-
-        self.label_fecha = ctk.CTkLabel(self.root, text="Fecha:")
-        self.label_fecha.pack()
-        self.entry_fecha = ctk.CTkEntry(self.root)
-        self.entry_fecha.pack()
-
-        self.label_cupo = ctk.CTkLabel(self.root, text="Cupo:")
-        self.label_cupo.pack()
-        self.entry_cupo = ctk.CTkEntry(self.root)
-        self.entry_cupo.pack()
-
-        self.boton_crear_curso = ctk.CTkButton(self.root, text="Crear Curso", command=self.crear_curso)
-        self.boton_crear_curso.pack(pady=10)
-
-        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
-        self.boton_exit.pack()
-
-    def eliminar_curso(self):
-        self.clear_screen()
-        self.label_menu = ctk.CTkLabel(self.root, text="Eliminar Curso")
-        self.label_menu.pack(pady=10)
-
-        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
-        self.label_nombre.pack()
-        self.entry_nombre = ctk.CTkEntry(self.root)
-        self.entry_nombre.pack()
-
-        self.boton_eliminar_curso = ctk.CTkButton(self.root, text="Eliminar Curso", command=self.eliminar_curso)
-        self.boton_eliminar_curso.pack(pady=10)
-
-        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
-        self.boton_exit.pack()
+        self.root.exit_button = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+        self.root.exit_button.pack(pady=10)
+        
+        self.root.mainloop()
+        pass
         
     def showNewsMenu(self):
         self.clear_screen()
