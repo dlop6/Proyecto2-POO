@@ -361,6 +361,17 @@
             },
             "Cursos realizados": [],
             "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "tnook@acnh.com",
+                "password": "Tom Nook",
+                "name": "Tom Nook",
+                "carnet": "23354",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
         }
     ]
 }

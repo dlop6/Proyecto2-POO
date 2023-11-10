@@ -14,7 +14,7 @@ class Usuario:
     - cursos_proximos (list): Lista de cursos que el usuario tiene pendientes por completar.
     """
 
-    def __init__(self, carnet, nombre, email, password, es_miembro_salud, cursos_realizados=None, cursos_proximos=None):
+    def __init__(self, carnet, nombre, email, password, es_miembro_salud, cursos_realizados=None, cursos_proximos=None, evaluaciones=None):
         self.perfil = {
             "carnet": carnet,
             "name": nombre,
@@ -24,6 +24,7 @@ class Usuario:
         }
         self.cursos_realizados = cursos_realizados or []
         self.cursos_proximos = cursos_proximos or []
+        self.evaluaciones = evaluaciones or []
 
     def to_dict(self):
         """
@@ -55,3 +56,11 @@ class Usuario:
             data.get("Cursos realizados", []),
             data.get("Cursos proximos", [])
         )
+    
+    def agregar_evaluacion_curso(self, curso, rating, comentarios):
+        evaluacion = {"curso": curso, "rating": rating, "comentarios": comentarios}
+        self.evaluaciones.append(evaluacion)
+
+    def agregar_evaluacion_material(self, rating, comentarios):
+        evaluacion = {"rating": rating, "comentarios": comentarios}
+        self.evaluaciones.append(evaluacion)
