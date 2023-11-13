@@ -372,6 +372,39 @@
             },
             "Cursos realizados": [],
             "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "luisp@gmail.com",
+                "password": "123",
+                "name": "luis",
+                "carnet": "1234",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "bar23174@uvg.edu.gt",
+                "password": "hola123",
+                "name": "Andrea Barrera",
+                "carnet": "23174",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
+        },
+        {
+            "perfil": {
+                "email": "si",
+                "password": "asdf",
+                "name": "Carlos",
+                "carnet": "23394",
+                "miembro_de_Salud": true
+            },
+            "Cursos realizados": [],
+            "Cursos proximos": []
         }
     ]
 }
