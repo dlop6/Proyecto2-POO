@@ -1,6 +1,3 @@
-
-import json
-
 import json
 
 class BaseDeDatosJSON:
@@ -111,7 +108,6 @@ class BaseDeDatosJSON:
         if cursos_proximos is None:
             cursos_proximos = []
         
-        # Check if email already exists
         if self.buscar_usuario(email):
             return False
         
@@ -130,3 +126,33 @@ class BaseDeDatosJSON:
         self.data['usuarios'].append(usuario)
         self.save_data()
         return True
+    
+    def obtener_cursos_usuario(self, email):
+        """
+        Obtiene la lista de cursos de un usuario.
+
+        Parámetros:
+        - email (str): El email del usuario.
+
+        Retorna:
+        - Una lista de cursos del usuario, o None si el usuario no existe.
+        """
+        usuario = self.buscar_usuario(email)
+        if usuario:
+            return usuario.get("Cursos realizados", [])
+        return None
+    
+    def obtener_evaluaciones_usuario(self, email):
+        """
+        Obtiene las evaluaciones de cursos de un usuario.
+
+        Parámetros:
+        - email (str): El email del usuario.
+
+        Retorna:
+        - Una lista de evaluaciones de cursos del usuario, o None si el usuario no existe.
+        """
+        usuario = self.buscar_usuario(email)
+        if usuario:
+            return usuario.get("Evaluaciones de cursos", [])
+        return None

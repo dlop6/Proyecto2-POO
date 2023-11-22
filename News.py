@@ -1,14 +1,8 @@
 import requests
 import customtkinter as ctk
 import webbrowser
-
-
-
-
 import requests
 import webbrowser
-
-
 class News:
     """
     Clase que representa una fuente de noticias. Permite obtener noticias relacionadas con medicina y salud en inglés
@@ -94,8 +88,6 @@ class News:
         :type link: str
         """
         webbrowser.open(link)
-        
-    
     
 def main():
     root = ctk.CTk()
@@ -105,13 +97,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-        
-    
-
-    
-    
-
-
-
-
-

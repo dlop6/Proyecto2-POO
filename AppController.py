@@ -1,30 +1,34 @@
 '''
 Universidad del Valle de Guatemala
 Proyecto Final POO
-Roberto Barreda - 23354
-prueba
+Diego Lopez y Roberto Barreda - 23354
 '''
 
 import json
+import uuid
 from tkcalendar import Calendar
 import tkinter as tk
-from tkinter import messagebox, ttk
-from Usuario import Usuario
+from tkinter import messagebox
 import customtkinter as ctk
-from customtkinter import *
+from Orientacion import Orientacion
+from News import News
 from BaseDeDatosJSON import BaseDeDatosJSON
 from Usuario import Usuario
-from News import News
+from Cursos import Cursos
 
-class Aplicacion:
-    def __init__(self, root):
+class Aplicacion(tk.Tk):
+    def __init__(self, root, usuario=None):
+        super().__init__(root)
         self.root = root
+        self.usuario = usuario
         self.file_name = "usuarios.json"
         self.base_de_datos = BaseDeDatosJSON(self.file_name)
         self.controlador_usuario = Usuario(self.base_de_datos, "", "", "", False, "")
         self.news = News("pub_32493947bac2cd99a74d4b4821243a7ac98aa", self.root)
         self.root.geometry("400x300")
         self.root.title("Sistema de Autenticación")
+        self.top_frame = ctk.CTkFrame(self)
+        self.top_frame.pack(expand=True, fill="both")
         self.menu()
 
     def menu(self):
@@ -153,37 +157,53 @@ class Aplicacion:
         self.label_evaluacion_curso = ctk.CTkLabel(self.root, text="Evaluación de Curso")
         self.label_evaluacion_curso.pack(pady=10)
 
-        cursos_disponibles = ["Curso 1", "Curso 2", "Curso 3"]
+        if self.usuario:
+            cursos_realizados = self.usuario.get("perfil", {}).get("Cursos realizados", [])
 
-        self.label_curso = ctk.CTkLabel(self.root, text="Seleccione un curso:")
-        self.label_curso.pack()
+            if cursos_realizados:
+                nombres_cursos = [curso["nombre"] for curso in cursos_realizados]
 
-        self.selected_course_var = tk.StringVar()
-        self.combobox_curso = ttk.Combobox(self.root, textvariable=self.selected_course_var, values=cursos_disponibles)
-        self.combobox_curso.pack(pady=10)
+                self.label_curso = ctk.CTkLabel(self.root, text="Seleccione un curso:")
+                self.label_curso.pack()
 
-        self.label_rating = ctk.CTkLabel(self.root, text="Rating:")
-        self.label_rating.pack()
-        self.entry_rating = ctk.CTkEntry(self.root)
-        self.entry_rating.pack()
+                self.selected_course_var = tk.StringVar()
+                self.evaluar_curso_menu = tk.OptionMenu(self.root, self.selected_course_var, *nombres_cursos)
+                self.evaluar_curso_menu.grid(row=4, column=1, padx=10, pady=10)
 
-        self.label_comentarios = ctk.CTkLabel(self.root, text="Comentarios:")
-        self.label_comentarios.pack()
-        self.entry_comentarios = ctk.CTkEntry(self.root)
-        self.entry_comentarios.pack()
+                self.label_rating = ctk.CTkLabel(self.root, text="Rating:")
+                self.label_rating.pack()
 
-        self.boton_enviar_evaluacion = ctk.CTkButton(self.root, text="Enviar Evaluación", command=self.enviar_evaluacion_curso)
-        self.boton_enviar_evaluacion.pack(pady=10)
+                self.rating_slider = tk.Scale(self.root, from_=0, to=5, orient="horizontal", length=200, resolution=0.1)
+                self.rating_slider.pack(pady=10)
 
-        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
-        self.boton_exit.pack()
+                self.label_comentarios = ctk.CTkLabel(self.root, text="Comentarios:")
+                self.label_comentarios.pack()
+                self.entry_comentarios = ctk.CTkEntry(self.root)
+                self.entry_comentarios.pack()
+
+                self.boton_enviar_evaluacion = ctk.CTkButton(self.root, text="Enviar Evaluación", command=self.enviar_evaluacion_curso)
+                self.boton_enviar_evaluacion.pack(pady=10)
+
+                self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+                self.boton_exit.pack()
+            else:
+                self.label_no_courses = ctk.CTkLabel(self.root, text="No hay cursos completados para evaluar.")
+                self.label_no_courses.pack(pady=10)
+                self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+                self.boton_exit.pack()
+        else:
+            self.label_no_user = ctk.CTkLabel(self.root, text="No hay usuario registrado.")
+            self.label_no_user.pack(pady=10)
+            self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+            self.boton_exit.pack()
+
 
     def logged_menu(self):
        self.clear_screen()
        self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
        self.label_menu.pack(pady=10)
        button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
-       button_commands = [self.showNewsMenu, self.cursos, self.agenda, self.evaluar_curso, None, self.menu] 
+       button_commands = [self.showNewsMenu, self.cursos, self.agenda, self.evaluar_curso, self.orientaciones, self.menu] 
        for text, command in zip(button_texts, button_commands):
            button = ctk.CTkButton(self.root, text=text, command=command)
            button.pack(pady=5)
@@ -218,11 +238,24 @@ class Aplicacion:
         self.entry_cupo = ctk.CTkEntry(self.root)
         self.entry_cupo.pack()
 
-        self.boton_crear_curso = ctk.CTkButton(self.root, text="Crear Curso", command=self.crear_curso)
+        self.boton_crear_curso = ctk.CTkButton(self.root, text="Crear Curso", command=self.crear_curso_action)
         self.boton_crear_curso.pack(pady=10)
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
         self.boton_exit.pack()
+
+    def crear_curso_action(self):
+        nombre = self.entry_nombre.get()
+        fecha = self.entry_fecha.get()
+        cupo = self.entry_cupo.get()
+
+        if nombre and fecha and cupo:
+            curso = {"nombre": nombre, "fecha": fecha, "cupo": cupo}
+            self.controlador_usuario.agregar_curso_usuario(curso)
+            messagebox.showinfo("Curso Creado", f"Curso {nombre} creado exitosamente.")
+            self.logged_menu()
+        else:
+            messagebox.showwarning("Datos Incompletos", "Por favor, complete todos los campos.")
 
     def eliminar_curso(self):
         self.clear_screen()
@@ -239,6 +272,17 @@ class Aplicacion:
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
         self.boton_exit.pack()
+
+    def eliminar_curso(self):
+        nombre = self.entry_nombre.get()
+
+        if nombre:
+            curso = {"nombre": nombre}
+            self.controlador_usuario.eliminar_curso(curso)
+            messagebox.showinfo("Curso Eliminado", f"Curso {nombre} eliminado exitosamente.")
+            self.logged_menu()
+        else:
+            messagebox.showwarning("Datos Incompletos", "Por favor, complete todos los campos.")
 
     def agendar_evento(self):
         self.clear_screen()
@@ -266,8 +310,9 @@ class Aplicacion:
         event_description = self.entry_event.get()
 
         if selected_date and event_description:
-            # Guardar eventos (esto es solo un ejemplo, debes adaptarlo a tu lógica)
-            event = {"date": selected_date, "description": event_description}
+            event_id = str(uuid.uuid4())
+
+            event = {"id": event_id, "date": selected_date, "description": event_description}
             events = []
 
             try:
@@ -293,6 +338,7 @@ class Aplicacion:
 
         if selected_course and rating and comentarios:
             self.controlador_usuario.agregar_evaluacion_curso(selected_course, rating, comentarios)
+            Usuario.agregar_evaluacion_curso(Cursos["nombre"], rating, comentarios)
             messagebox.showinfo("Evaluación Enviada", "Evaluación de curso enviada exitosamente.")
             self.logged_menu()
         else:
@@ -311,6 +357,17 @@ class Aplicacion:
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
+
+    def orientaciones(self):
+        self.clear_screen()
+        self.label_orientaciones = ctk.CTkLabel(self.root, text="Orientaciones y Ratings de Cursos")
+        self.label_orientaciones.pack(pady=10)
+
+        orientacion = Orientacion(self.root, "usuarios.json")
+        orientacion.mostrar_orientacion()
+
+        self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
+        self.boton_exit.pack()
 
 def main():
     root = ctk.CTk()
