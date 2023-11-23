@@ -56,11 +56,58 @@ class Usuario:
             data.get("Cursos realizados", []),
             data.get("Cursos proximos", [])
         )
-    
-    def agregar_evaluacion_curso(self, curso, rating, comentarios):
-        evaluacion = {"curso": curso, "rating": rating, "comentarios": comentarios}
-        self.evaluaciones.append(evaluacion)
 
     def agregar_evaluacion_material(self, rating, comentarios):
         evaluacion = {"rating": rating, "comentarios": comentarios}
         self.evaluaciones.append(evaluacion)
+
+    def agregar_evaluacion_curso(self, nombre_curso, rating, comentarios):
+        """
+        Agrega una evaluación de curso al perfil del usuario.
+
+        Args:
+        - nombre_curso (str): Nombre del curso a evaluar.
+        - rating (float): Calificación dada al curso.
+        - comentarios (str): Comentarios sobre el curso.
+        """
+        evaluacion = {"curso": nombre_curso, "rating": rating, "comentarios": comentarios}
+        self.evaluaciones.append(evaluacion)
+
+    def curso_evaluado(self, nombre_curso):
+        """
+        Verifica si el usuario ya ha evaluado el curso.
+
+        Args:
+        - nombre_curso (str): Nombre del curso a verificar.
+
+        Returns:
+        - bool: True si el curso ya ha sido evaluado, False de lo contrario.
+        """
+        for evaluacion in self.evaluaciones:
+            if evaluacion["curso"] == nombre_curso:
+                return True
+        return False
+
+    def obtener_evaluaciones(self):
+        """
+        Obtiene las evaluaciones de cursos del usuario.
+
+        Returns:
+        - List[dict]: Lista de evaluaciones de cursos del usuario.
+        """
+        return self.evaluaciones
+
+    def curso_ya_agregado(self, curso):
+        """
+        Verifica si el usuario ya ha agregado el curso.
+
+        Args:
+        - curso (dict): Información del curso a verificar.
+
+        Returns:
+        - bool: True si el curso ya ha sido agregado, False de lo contrario.
+        """
+        for curso_realizado in self.cursos_realizados:
+            if curso_realizado["nombre"] == curso["nombre"]:
+                return True
+        return False

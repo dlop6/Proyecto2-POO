@@ -3,6 +3,8 @@ import json
 
 import json
 
+from Usuario import Usuario
+
 class BaseDeDatosJSON:
     """
     Clase que representa una base de datos en formato JSON para almacenar información de usuarios y sus cursos.
@@ -30,6 +32,7 @@ class BaseDeDatosJSON:
         self.filename = filename
         self.data = {}
         self.load_data()
+        self.data = self.cargar_datos()
 
     def load_data(self):
         """
@@ -111,7 +114,6 @@ class BaseDeDatosJSON:
         if cursos_proximos is None:
             cursos_proximos = []
         
-        # Check if email already exists
         if self.buscar_usuario(email):
             return False
         
@@ -130,3 +132,45 @@ class BaseDeDatosJSON:
         self.data['usuarios'].append(usuario)
         self.save_data()
         return True
+    
+    def cargar_datos(self):
+        try:
+            with open(self.filename, 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            data = {"usuarios": []}
+            self.guardar_datos(data)
+        return data
+    
+    def guardar_datos(self, data):
+        with open(self.filename, 'w') as file:
+            json.dump(data, file, indent=4)
+
+    def actualizar_usuario(self, email, nuevo_usuario):
+        index = next((i for i, user in enumerate(self.data["usuarios"]) if user["perfil"]["email"] == email), None)
+        
+        if index is not None:
+            self.data["usuarios"][index] = nuevo_usuario
+            self.guardar_datos(self.data)
+            print(f"Usuario con email {email} actualizado.")
+        else:
+            print(f"Usuario con email {email} no encontrado.")
+
+    def agregar_evaluacion_curso(self, email, nombre_curso, rating, comentarios):
+        """
+        Agrega una evaluación de curso al usuario.
+
+        Args:
+        - email (str): El email del usuario.
+        - nombre_curso (str): Nombre del curso a evaluar.
+        - rating (float): Calificación dada al curso.
+        - comentarios (str): Comentarios sobre el curso.
+        """
+        usuario_data = self.buscar_usuario(email)
+
+        if usuario_data:
+            usuario_obj = Usuario.from_dict(usuario_data)
+            usuario_obj.agregar_evaluacion_curso(nombre_curso, rating, comentarios)
+            self.actualizar_usuario(email, usuario_obj.to_dict())
+        else:
+            print(f"Usuario con email {email} no encontrado.")
