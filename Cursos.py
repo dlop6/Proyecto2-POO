@@ -6,7 +6,6 @@ class Cursos:
     def __init__(self, user, root):
         self.email = user["perfil"]["email"]
         self.cursos_proximos = user["Cursos proximos"]  
-        self.cursos_realizados = user["Cursos realizados"]
         self.root = root
 
     def agregar_curso(self, curso):
