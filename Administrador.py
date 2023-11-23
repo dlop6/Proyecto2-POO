@@ -13,6 +13,7 @@ class Administrador():
         self.admin_password = "admin"
         self.root = root
         self.screen_controller = ScreenController(self.root)
+
         
     def admin_login_menu(self):
         self.screen_controller.clear_screen()
@@ -69,21 +70,35 @@ class Administrador():
         self.root.delete_user_entry = ctk.CTkEntry(self.root)
         self.root.delete_user_entry.pack(pady = 5)
         
-        self.user_to_delete = self.root.delete_user_entry.get()
 
-        self.root.delete_user_button = ctk.CTkButton(self.root, text="Eliminar usuario", command= lambda: self.delete_user(self.user_to_delete))
+
+        self.root.delete_user_button = ctk.CTkButton(self.root, text="Eliminar usuario", command= lambda: self.delete_user(self.root.delete_user_entry.get()))
         self.root.delete_user_button.pack(pady = 5)
         
-        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_menu)
+        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_login_menu)
+        self.root.exit_button.pack(pady = 5)
+        
+    
     
     def delete_user(self, user_to_delete):
         with open("usuarios.json", "r") as file:
             users = json.load(file)
-        
-        updated_users = [user for user in users if user["email"] != user_to_delete]
 
-        with open("usuarios.json", "w") as file:
-            json.dump(updated_users, file, indent=4)
+        user_found = False
+        for user in users["usuarios"]:
+            if user["perfil"]["email"] == user_to_delete:
+                users["usuarios"].remove(user)
+                user_found = True
+                break
+
+        if user_found:
+            with open("usuarios.json", "w") as file:
+                json.dump(users, file, indent=4)
+            messagebox.showinfo("Usuario eliminado", "El usuario ha sido eliminado exitosamente")
+        else:
+            messagebox.showerror("Error", "El usuario no existe")
+        
+        
             
     def change_certificado_menu(self):
         self.screen_controller.clear_screen()
@@ -110,7 +125,7 @@ class Administrador():
         self.root.delete_course_button = ctk.CTkButton(self.root, text="Cambiar estado de certificado", command=lambda: self.change_certificado(self.root.course_entry.get(), self.root.user_entry.get(), self.root.estado_curso_var.get()))
         self.root.delete_course_button.pack()
         
-        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_menu)
+        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_login_menu)
         
     def change_certificado(self, course_code, user, estado_curso):
         self.base_de_datos = BaseDeDatosJSON("usuarios.json")

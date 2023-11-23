@@ -52,7 +52,6 @@ class Usuario:
             data["perfil"]["email"],
             data["perfil"]["password"],
             data["perfil"]["miembro_de_Salud"],
-            data.get("Cursos realizados", []),
             data.get("Cursos proximos", [])
         )
     
