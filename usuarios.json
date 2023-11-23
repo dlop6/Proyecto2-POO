@@ -222,6 +222,13 @@
                     "fecha": "",
                     "certificado": false,
                     "localidad": ""
+                },
+                {
+                    "codigo": "12341",
+                    "nombre": "Curso 4",
+                    "fecha": "02/02/03",
+                    "certificado": false,
+                    "localidad": "mexico"
                 }
             ]
         },
