@@ -15,6 +15,7 @@ from customtkinter import *
 from BaseDeDatosJSON import BaseDeDatosJSON
 from Usuario import Usuario
 from News import News
+from Cursos import Cursos
 
 class Aplicacion:
     def __init__(self, root):
@@ -23,6 +24,7 @@ class Aplicacion:
         self.base_de_datos = BaseDeDatosJSON(self.file_name)
         self.controlador_usuario = Usuario(self.base_de_datos, "", "", "", False, "")
         self.news = News("pub_32493947bac2cd99a74d4b4821243a7ac98aa", self.root)
+        self.logged_user = {}
         self.root.geometry("400x300")
         self.root.title("Sistema de Autenticación")
         self.menu()
@@ -48,10 +50,10 @@ class Aplicacion:
         self.label_registro = ctk.CTkLabel(self.root, text="Registro de Usuario")
         self.label_registro.pack(pady=10)
 
-        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
-        self.label_nombre.pack()
-        self.entry_nombre = ctk.CTkEntry(self.root)
-        self.entry_nombre.pack()
+        self.code_label = ctk.CTkLabel(self.root, text="Nombre:")
+        self.code_label.pack()
+        self.entry_code = ctk.CTkEntry(self.root)
+        self.entry_code.pack()
 
         self.label_email = ctk.CTkLabel(self.root, text="Correo Electrónico:")
         self.label_email.pack()
@@ -82,7 +84,7 @@ class Aplicacion:
         self.boton_exit.pack()
 
     def registrarse(self):
-        nombre = self.entry_nombre.get()
+        nombre = self.entry_code.get()
         email = self.entry_email.get()
         password = self.entry_password.get()
         es_miembro_salud = self.var_miembro_salud.get()
@@ -123,10 +125,10 @@ class Aplicacion:
 
         resultado = self.base_de_datos.autenticar(email, password)
         if resultado:
+            self.logged_user = self.base_de_datos.buscar_usuario(email)
             self.logged_menu()
         else:
             messagebox.showinfo("No se pudo iniciar sesión", "El correo electrónico o la contraseña son incorrectos")
-
     def agenda(self):
         self.clear_screen()
         self.label_agenda = ctk.CTkLabel(self.root, text="Agenda")
@@ -200,41 +202,60 @@ class Aplicacion:
         
     def crear_curso(self):
         self.clear_screen()
+        self.cursos = Cursos(self.logged_user, self.root)
         self.label_menu = ctk.CTkLabel(self.root, text="Crear Curso")
         self.label_menu.pack(pady=10)
+        
+        self.label_codigo = ctk.CTkLabel(self.root, text="Código:")
+        self.label_codigo.pack()
+        self.entry_codigo = ctk.CTkEntry(self.root)
+        self.entry_codigo.pack()
 
-        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
-        self.label_nombre.pack()
-        self.entry_nombre = ctk.CTkEntry(self.root)
-        self.entry_nombre.pack()
+        self.code_label = ctk.CTkLabel(self.root, text="Nombre:")
+        self.code_label.pack()
+        self.entry_code = ctk.CTkEntry(self.root)
+        self.entry_code.pack()
 
         self.label_fecha = ctk.CTkLabel(self.root, text="Fecha:")
         self.label_fecha.pack()
         self.entry_fecha = ctk.CTkEntry(self.root)
         self.entry_fecha.pack()
 
-        self.label_cupo = ctk.CTkLabel(self.root, text="Cupo:")
-        self.label_cupo.pack()
-        self.entry_cupo = ctk.CTkEntry(self.root)
-        self.entry_cupo.pack()
+        self.label_localidad = ctk.CTkLabel(self.root, text="Localidad:")
+        self.label_localidad.pack()
+        self.entry_localidad = ctk.CTkEntry(self.root)
+        self.entry_localidad.pack()
+        
 
-        self.boton_crear_curso = ctk.CTkButton(self.root, text="Crear Curso", command=self.crear_curso)
+        self.boton_crear_curso = ctk.CTkButton(
+            self.root, 
+            text="Crear Curso", 
+            command=lambda: self.cursos.agregar_curso({
+            "codigo": self.entry_codigo.get(),
+            "nombre": self.entry_code.get(),
+            "fecha": self.entry_fecha.get(),
+            "certificado": False,
+            "localidad": self.entry_localidad.get()
+         })
+        )
         self.boton_crear_curso.pack(pady=10)
+
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
         self.boton_exit.pack()
 
     def eliminar_curso(self):
+        self.cursos = Cursos(self.logged_user, self.root)
         self.clear_screen()
         self.label_menu = ctk.CTkLabel(self.root, text="Eliminar Curso")
         self.label_menu.pack(pady=10)
 
-        self.label_nombre = ctk.CTkLabel(self.root, text="Nombre:")
-        self.label_nombre.pack()
-        self.entry_nombre = ctk.CTkEntry(self.root)
-        self.entry_nombre.pack()
+        self.code_label = ctk.CTkLabel(self.root, text="Codigo de curso:")
+        self.code_label.pack()
+        self.entry_code = ctk.CTkEntry(self.root)
+        self.entry_code.pack()
 
-        self.boton_eliminar_curso = ctk.CTkButton(self.root, text="Eliminar Curso", command=self.eliminar_curso)
+        self.boton_eliminar_curso = ctk.CTkButton(self.root, text="Eliminar Curso", command= lambda: self.cursos.eliminar_curso(self.entry_code.get()))
         self.boton_eliminar_curso.pack(pady=10)
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)

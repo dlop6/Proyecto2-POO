@@ -349,7 +349,15 @@
                 "miembro_de_Salud": true
             },
             "Cursos realizados": [],
-            "Cursos proximos": []
+            "Cursos proximos": [
+                {
+                    "codigo": "",
+                    "nombre": "",
+                    "fecha": "",
+                    "certificado": false,
+                    "localidad": ""
+                }
+            ]
         },
         {
             "perfil": {

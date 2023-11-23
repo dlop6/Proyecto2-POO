@@ -1,46 +1,57 @@
-'''
-Universidad del Valle de Guatemala
-Proyecto Final POO
-Javier Lopez - 23415
-'''
+import json
 import tkinter as tk
+from tkinter import messagebox
 
 class Cursos:
-    def __init__(self) -> None:
-        self.cursos = []
-        self.cursos_disponibles = []
-        self.cursos_disponibles.append("Curso 1")
-        self.cursos_disponibles.append("Curso 2")
-        self.cursos_disponibles.append("Curso 3")
-        self.cursos_disponibles.append("Curso 4")
-        self.cursos_disponibles.append("Curso 5")
+    def __init__(self, user, root):
+        self.email = user["perfil"]["email"]
+        self.cursos_proximos = user["Cursos proximos"]  
+        self.cursos_realizados = user["Cursos realizados"]
+        self.root = root
+
+    def agregar_curso(self, curso):
+    # Load the JSON data
+        with open('usuarios.json', 'r') as f:
+            data = json.load(f)
+
+        # Find the user and check if the course already exists
+        for usuario in data['usuarios']:
+            if usuario['perfil']['email'] == self.email:
+                for curso_existente in usuario['Cursos proximos']:
+                    if curso_existente["codigo"] == curso["codigo"]:
+                        self.show_message("Ya existe el curso!")
+                        return
+
+                # If the course does not exist, append it
+                usuario['Cursos proximos'].append(curso)
+                self.show_message("Curso agregado exitosamente!")
+                break
+
+        # Write the updated data back to the JSON file
+        with open('usuarios.json', 'w') as f:
+            json.dump(data, f, indent=4)
+        
+
+    def eliminar_curso(self, codigo):
     
-    def cursos_menu(self):
+        with open('usuarios.json', 'r') as f:
+            data = json.load(f)
 
-        def agregar_curso(self, curso, fecha, cupo):
-            self.cursos.append({'curso': curso, 'fecha': fecha, 'cupo': cupo})
-            self.cursos_disponibles.remove(curso)
-
-        def eliminar_curso(self, curso):
-            self.cursos.remove(curso)
-            self.cursos_disponibles.append(curso)
     
-        def mostrar_cursos(self):
-            for curso in self.cursos:
-                print(f"Nombre: {curso['nombre']}, Fecha: {curso['fecha']}, Cupo: {curso['cupo']}")
+        for usuario in data['usuarios']:
+            if usuario['perfil']['email'] == self.email:
+                for curso in usuario['Cursos proximos']:
+                    if curso["codigo"] == codigo:
+                        usuario['Cursos proximos'].remove(curso)
+                        self.show_message("Curso eliminado exitosamente!")
+                        break
+                else:
+                    self.show_message("Curso no encontrado!")
+                    return
+
     
-        def mostrar_cursos_disponibles(self):
-            for curso in self.cursos_disponibles:
-                print(curso)
+        with open('usuarios.json', 'w') as f:
+            json.dump(data, f, indent=4)
 
-
-def main():
-    root = tk.Tk()
-    cursos = Cursos()
-    cursos.cursos_menu()
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    main()
-
+    def show_message(self, message):
+        messagebox.showinfo("Message", message)
