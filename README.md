@@ -4,17 +4,18 @@
 
 Este proyecto ofrece un sistema integrado que combina la gestión de noticias relacionadas con medicina y salud y un sistema de cursos en línea con representación de usuarios. A continuación, se describen las principales clases y sus funcionalidades.
 
-##Dependencias
+## Dependencias
+
 Asegúrese de tener instaladas las siguientes dependencias antes de ejecutar el proyecto:
 
-requests: Para realizar solicitudes HTTP y obtener noticias de la API.
-bash
-
-pip install requests
-customtkinter: Una versión personalizada de Tkinter utilizada para la interfaz gráfica.
-
-pip install customtkinter
-
+- `requests`: Para realizar solicitudes HTTP y obtener noticias de la API.
+  ```bash
+  pip install requests
+  ```
+- `customtkinter`: Una versión personalizada de Tkinter utilizada para la interfaz gráfica.
+  ```bash
+  pip install customtkinter
+  ```
 
 ## Clase `Administrador`
 
@@ -66,7 +67,7 @@ La clase `News` permite obtener y mostrar noticias relacionadas con medicina y s
 
 Para ejecutar el proyecto, se proporciona un script principal llamado `main` que crea instancias de las clases pertinentes y muestra menús o realiza otras acciones según sea el caso.
 
-```python
+```bash
 python main.py
 ```
 
