@@ -106,8 +106,6 @@ class BaseDeDatosJSON:
         Retorna:
         - True si el usuario es creado exitosamente, False en caso contrario.
         """
-        if cursos_realizados is None:
-            cursos_realizados = []
         if cursos_proximos is None:
             cursos_proximos = []
         
@@ -123,7 +121,6 @@ class BaseDeDatosJSON:
                 "carnet": carnet,
                 "miembro_de_Salud": miembro_de_Salud
             },
-            "Cursos realizados": cursos_realizados,
             "Cursos proximos": cursos_proximos
         }
         

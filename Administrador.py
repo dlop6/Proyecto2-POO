@@ -73,6 +73,8 @@ class Administrador():
 
         self.root.delete_user_button = ctk.CTkButton(self.root, text="Eliminar usuario", command= lambda: self.delete_user(self.user_to_delete))
         self.root.delete_user_button.pack(pady = 5)
+        
+        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_menu)
     
     def delete_user(self, user_to_delete):
         with open("usuarios.json", "r") as file:
@@ -90,33 +92,40 @@ class Administrador():
         self.root.resizable(False, False)
 
         self.root.user = ctk.CTkLabel(self.root, text="Ingrese el email del usuario a manejar: ")
-        self.root.user.pack()
+        self.root.user.pack(pady=5)
 
         self.root.user_entry = ctk.CTkEntry(self.root)
-        self.root.user_entry.pack()
+        self.root.user_entry.pack(pady=5)
 
         self.root.course = ctk.CTkLabel(self.root, text="Ingrese el nombre del curso a manejar: ")
-        self.root.course.pack()
+        self.root.course.pack(pady=5)
 
         self.root.course_entry = ctk.CTkEntry(self.root)
-        self.root.course_entry.pack()
+        self.root.course_entry.pack(pady=5)
 
         self.root.estado_curso_var = ctk.BooleanVar()
         self.root.estado_curso = ctk.CTkCheckBox(self.root, text="Estado de curso", variable=self.root.estado_curso_var, onvalue=True, offvalue=False)
-        self.root.estado_curso.pack()
+        self.root.estado_curso.pack(pady=5)
 
         self.root.delete_course_button = ctk.CTkButton(self.root, text="Cambiar estado de certificado", command=lambda: self.change_certificado(self.root.course_entry.get(), self.root.user_entry.get(), self.root.estado_curso_var.get()))
         self.root.delete_course_button.pack()
         
-    def change_certificado(self, course, user, estado_curso):
+        self.root.exit_button = ctk.CTkButton(self.root, text="Salir", command=self.admin_menu)
+        
+    def change_certificado(self, course_code, user, estado_curso):
         self.base_de_datos = BaseDeDatosJSON("usuarios.json")
         self.current_user = self.base_de_datos.buscar_usuario(user)
         
-        if estado_curso:
-            self.current_user["Cursos proximos"][course]["certificado"] = True
+        # Find the course with the specified code
+        for course in self.current_user["Cursos proximos"]:
+            if course["codigo"] == course_code:
+                # Change the "Certificado" field
+                course["Certificado"] = estado_curso
+                break
         else:
-            self.current_user["Cursos proximos"][course]["certificado"] = False
-        
+            messagebox.showerror("Error", "El curso no existe")
+            return
+
         self.base_de_datos.save_data()
         
 

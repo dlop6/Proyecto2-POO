@@ -415,7 +415,6 @@
             "Cursos proximos": []
         }
     ],
-
     "administrador": [
         {
             "perfil": {
@@ -425,6 +424,6 @@
                 "carnet": "001",
                 "miembro_de_Salud": true
             }
-        } 
+        }
     ]
 }

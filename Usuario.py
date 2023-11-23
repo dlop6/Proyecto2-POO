@@ -32,7 +32,6 @@ class Usuario:
         """
         return {
             "perfil": self.perfil,
-            "Cursos realizados": self.cursos_realizados,
             "Cursos proximos": self.cursos_proximos
         }
 
