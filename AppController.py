@@ -16,12 +16,16 @@ from BaseDeDatosJSON import BaseDeDatosJSON
 from Usuario import Usuario
 from News import News
 from Cursos import Cursos
+from ScreenController import ScreenController
+from Administrador import Administrador
 
 class Aplicacion:
     def __init__(self, root):
         self.root = root
+        self.screen_controller = ScreenController(root)
         self.file_name = "usuarios.json"
         self.base_de_datos = BaseDeDatosJSON(self.file_name)
+        self.admin = Administrador(self.root)
         self.controlador_usuario = Usuario(self.base_de_datos, "", "", "", False, "")
         self.news = News("pub_32493947bac2cd99a74d4b4821243a7ac98aa", self.root)
         self.logged_user = {}
@@ -30,9 +34,9 @@ class Aplicacion:
         self.menu()
 
     def menu(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.root.geometry("400x300")
-        self.label_menu = ctk.CTkLabel(self.root, text="Menú Principal")
+        self.label_menu = ctk.CTkLabel(self.root, text="BIENVENIDO A TU SISTEMA DE CURSOS")
         self.label_menu.pack(pady=10)
 
         self.boton_signup = ctk.CTkButton(self.root, text="Sign Up", command=self.signup)
@@ -40,12 +44,17 @@ class Aplicacion:
 
         self.boton_login = ctk.CTkButton(self.root, text="Log In", command=self.login)
         self.boton_login.pack(pady=5)
+        
+        self.admin_login = ctk.CTkButton(self.root, text="Log In Administrador", command=self.admin.admin_login_menu)
+        self.admin_login.pack(pady=5)
 
         self.boton_exit = ctk.CTkButton(self.root, text="Exit", command=self.root.quit)
         self.boton_exit.pack(pady=5)
+        
+        
 
     def signup(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.root.geometry("400x500")
         self.label_registro = ctk.CTkLabel(self.root, text="Registro de Usuario")
         self.label_registro.pack(pady=10)
@@ -71,7 +80,6 @@ class Aplicacion:
         self.var_miembro_salud = tk.BooleanVar()
         self.checkbox_miembro_salud = ctk.CTkCheckBox(self.root, text="Sí", variable=self.var_miembro_salud)
         self.checkbox_miembro_salud.pack()
-
         self.label_carnet = ctk.CTkLabel(self.root, text="Número de carné (si aplica):")
         self.label_carnet.pack()
         self.entry_carnet = ctk.CTkEntry(self.root)
@@ -99,7 +107,7 @@ class Aplicacion:
             messagebox.showinfo("Resultado del Registro", "El correo electrónico ya está registrado")
 
     def login(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_inicio_sesion = ctk.CTkLabel(self.root, text="Iniciar Sesión")
         self.label_inicio_sesion.pack(pady=10)
 
@@ -130,7 +138,7 @@ class Aplicacion:
         else:
             messagebox.showinfo("No se pudo iniciar sesión", "El correo electrónico o la contraseña son incorrectos")
     def agenda(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_agenda = ctk.CTkLabel(self.root, text="Agenda")
         self.label_agenda.pack(pady=10)
 
@@ -151,7 +159,7 @@ class Aplicacion:
         self.button_exit.pack()
     
     def evaluar_curso(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_evaluacion_curso = ctk.CTkLabel(self.root, text="Evaluación de Curso")
         self.label_evaluacion_curso.pack(pady=10)
 
@@ -181,17 +189,17 @@ class Aplicacion:
         self.boton_exit.pack()
 
     def logged_menu(self):
-       self.clear_screen()
-       self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
-       self.label_menu.pack(pady=10)
-       button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
-       button_commands = [self.showNewsMenu, self.cursos, self.agenda, self.evaluar_curso, None, self.menu] 
-       for text, command in zip(button_texts, button_commands):
-           button = ctk.CTkButton(self.root, text=text, command=command)
-           button.pack(pady=5)
-           
+        self.screen_controller.clear_screen()
+        self.label_menu = ctk.CTkLabel(self.root, text="¡Bienvenido miembro de la comunidad de salud!")
+        self.label_menu.pack(pady=10)
+        button_texts = ["Noticias", "Cursos", "Agenda", "Evaluaciones", "Orientaciones", "Exit"]
+        button_commands = [self.showNewsMenu, self.cursos, self.agenda, self.evaluar_curso, None, self.menu] 
+        for text, command in zip(button_texts, button_commands):
+            button = ctk.CTkButton(self.root, text=text, command=command)
+            button.pack(pady=5)
+            
     def cursos(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_menu = ctk.CTkLabel(self.root, text="Cursos")
         self.label_menu.pack(pady=10)
         button_texts = ["Asignar Curso", "Eliminar Curso", "Exit"]
@@ -201,7 +209,7 @@ class Aplicacion:
             button.pack(pady=5)
         
     def crear_curso(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.cursos = Cursos(self.logged_user, self.root)
         self.label_menu = ctk.CTkLabel(self.root, text="Crear Curso")
         self.label_menu.pack(pady=10)
@@ -236,7 +244,7 @@ class Aplicacion:
             "fecha": self.entry_fecha.get(),
             "certificado": False,
             "localidad": self.entry_localidad.get()
-         })
+            })
         )
         self.boton_crear_curso.pack(pady=10)
 
@@ -246,7 +254,7 @@ class Aplicacion:
 
     def eliminar_curso(self):
         self.cursos = Cursos(self.logged_user, self.root)
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_menu = ctk.CTkLabel(self.root, text="Eliminar Curso")
         self.label_menu.pack(pady=10)
 
@@ -262,7 +270,7 @@ class Aplicacion:
         self.boton_exit.pack()
 
     def agendar_evento(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.label_agenda = ctk.CTkLabel(self.root, text="Agenda")
         self.label_agenda.pack(pady=10)
 
@@ -320,7 +328,7 @@ class Aplicacion:
             messagebox.showwarning("Datos Incompletos", "Por favor, complete todos los campos.")
         
     def showNewsMenu(self):
-        self.clear_screen()
+        self.screen_controller.clear_screen()
         self.news.news_menu()
 
         self.root.exit_button = ctk.CTkButton(self.root, text="Exit", command=self.logged_menu)
@@ -328,10 +336,6 @@ class Aplicacion:
 
         self.root.mainloop()
         pass
-
-    def clear_screen(self):
-        for widget in self.root.winfo_children():
-            widget.destroy()
 
 def main():
     root = ctk.CTk()
@@ -341,3 +345,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

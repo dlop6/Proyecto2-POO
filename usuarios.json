@@ -414,5 +414,17 @@
             "Cursos realizados": [],
             "Cursos proximos": []
         }
+    ],
+
+    "administrador": [
+        {
+            "perfil": {
+                "email": "admin@gmail.com",
+                "password": "admin",
+                "name": "Administrador",
+                "carnet": "001",
+                "miembro_de_Salud": true
+            }
+        } 
     ]
 }

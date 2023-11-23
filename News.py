@@ -50,6 +50,7 @@ class News:
         news_json = self.get_news()
         
         self.root.geometry("500x600")
+        self.root.resizable(True, True)
         
         self.root.title_label = ctk.CTkLabel(self.root, text="Noticias", font=("Arial", 16, "bold"))
         self.root.title_label.pack(pady=15, padx=10)
